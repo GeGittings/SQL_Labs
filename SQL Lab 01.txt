@@ -1,0 +1,12 @@
+SELECT sum(b.price), b.title
+from book as b, trans as t, customer as c
+where c.id = t.id AND t.bookid = b.bookid AND c.name = ‘Jenny’
+GROUP BY b.title;
+
+
+
+SELECT sum(b.price), b.title
+from boo> 40
+GROUP By c.name;
+
+SELECT distinct c.name, b.title
