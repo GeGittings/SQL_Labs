@@ -1,0 +1,34 @@
+SELECT c.name, b.title
+FROM book AS b, trans AS t, customer AS c
+WHERE c.id = t.id AND t.bookid = b.bookid AND b.title = 'The Code Book' OR b.pice 
+FROM book AS b, trans AS t, customer AS c
+WHERE c.id = t.id AND t.bookid = b.bookid AND( b.title = 'The Code Book' OR b.price > 40)
+GROUP BY b.bookid;
+
+CREATE VIEW ctb AS
+SELECT c.name, c.pphone, b.title, b.price, t.tdate
+FROM customer AS c, book as b, trans as t
+WHERE c.id=t.id AND b.bookid=t.bookid;
+
+SELECT distinct name, phone, date_format(tdate, '%m/%e/%y') AS date
+FROM ctb
+WHERE tdate like '%2017-10-%';
+
+
+
+
+
+CREATE VIEW ctb AS
+SELECT c.name, c.phone, b.title, b.price, t.tdate
+FROM customer AS c, book AS b, trans AS t
+WHERE c.id = t.id AND b.bookid =t.bookid;
+
+
+
+SELECT c.name, cphone, c.date
+FROM customer 
+
+SELECT m.item_name, sum(od.qty, sum(od.qty * m.price) AS tlprc
+FROM menu as m, order_detail as od, order_main as om
+WHERE m.id = od.menuid AND om.orderid = od.orderid AND om.order_date = '2003-11-8'
+GROUP BY m.item_name;
