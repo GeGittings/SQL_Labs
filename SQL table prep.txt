@@ -1,0 +1,111 @@
+CREATE TABLE crime_codes
+	( crime_code INT(3),
+	  code_description VARCHAR(30));
+
+
+ALTER TABLE crimes
+ MODIFY (classification DEFAULT 'U');
+
+ALTER TABLE crimes
+   ADD  (date_recorded DATE DEFAULT SYSDATE);
+
+ALTER TABLE prob_officers
+   ADD  (pager# CHAR(10));
+
+ALTER TABLE aliases
+ MODIFY (alias VARCHAR(20));
+
+CREATE TABLE aliases
+	(alias_ID INT(6),
+	  criminal_ID INT(6),
+	  alias INT(10))
+ENGINE = INNODB;
+	  
+CREATE TABLE criminals
+	( criminal_ID INT(6),
+	  last VARCHAR(15),
+	  first VARCHAR(10),
+	  street VARCHAR(30),
+	  city VARCHAR(20),
+	  state VARCHAR(2),
+	  zip INT(5),
+	  phone INT(10),
+	  v_status VARCHAR(1) DEFAULT 'N',
+	  p_status VARCHAR(1) DEFAULT 'N' );
+
+CREATE TABLE crimes
+	( crime_ID INT(9),
+	  criminal_ID INT(6),
+          classification VARCHAR(1),
+	  date_charged DATE,
+	  status VARCHAR(2),
+	  hearing_date DATE,
+	  appeal_cut_date DATE);
+	
+CREATE TABLE sentences
+	( sentence_ID INT(6),
+          criminal_ID INT(6),
+          type CHAR(1),
+          prob_ID INT(5),
+          start_date DATE,
+          end_date DATE,
+          violations INT(3));
+
+CREATE TABLE prob_officers
+	( prob_ID INT(5),
+	  last VARCHAR(15),
+	  first VARCHAR(10),
+	  street VARCHAR(30),
+	  city VARCHAR(20),
+	  state VARCHAR(2),
+	  zip INT(5),
+          phone INT(10),
+	  email VARCHAR(30),
+	  status VARCHAR(1) DEFAULT 'A');
+
+CREATE TABLE crime_charges
+	( charge_ID INT(10),
+	  crime_ID INT(9),
+	  crime_code INT(3),
+	  crime_status VARCHAR(2),
+	  fine_amount INT(7,2),
+	  court_fee INT(7,2),
+	  amount_paid INT(7,2),
+	  pay_due_date DATE);
+
+CREATE TABLE crime_officers
+	( crime_ID INT(9),
+	  officer_ID INT(8));
+
+CREATE TABLE officers
+	( officer_ID INT(8),
+	  last VARCHAR(15),
+	  first VARCHAR(10),
+	  precinct VARCHAR(4),
+	  badge VARCHAR(14),
+	  phone INT(10,0),
+	  status VARCHAR(1) DEFAULT 'A');
+
+CREATE TABLE appeals
+	( appeal_ID INT(5),
+	  crime_ID INT(9),
+	  filing_date DATE,
+	  hearing_date DATE,
+	  status CHAR(1) DEFAULT 'P');
+
+CREATE TABLE crime_codes
+	( crime_code INT(3),
+	  code_description VARCHAR(30));
+
+
+ALTER TABLE crimes
+ MODIFY (classification DEFAULT 'u');
+
+ALTER TABLE crimes
+   ADD  (date_recorded DATE DEFAULT SYSDATE);
+
+ALTER TABLE prob_officers
+   ADD  (pager# CHAR(10));
+
+ALTER TABLE aliases
+ MODIFY (alias VARCHAR(20));
