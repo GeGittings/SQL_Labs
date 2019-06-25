@@ -1,0 +1,58 @@
+Indexes - are like dictionaries, you an look up words 
+
+CREATE INDEX index_name ON table (column);
+
+Functions - created for OOPs that you call over and over
+
+Team proj, part one:
+one entity as room, and have type in attributes 
+dorm should be in room 
+students live in rooms, not dorms
+faculty have a room (office) in a building
+faculty teach sections
+departments linked to faculty 
+departments offer majors and courses
+payment weak entity
+students take sections(not sections) 
+courses (recursive relationship for prerequisites)
+semesters (titles)
+
+Large database - shift information (employees that worked more than 5 shifts in 2011
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS Full_Name, COUNT(*) AS Num_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND es.wdate LIKE "2011-%"
+GROUP BY Full_Name
+HAVING COUNT(*)>5;
+
+Large database - lunch shifts (count lunch shifts)
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS fullname, COUNT(*) AS lunch_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND s.period = "L"
+GROUP BY fullname
+ORDER BY lunch_shifts DESC, fullname ASC;
+
+Large database - weekend shifts
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS fullname, COUNT(*) AS lunch_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND s.period = "L"
+	AND (s.dayofweek = "sa" OR s.dayofweek = "su")
+GROUP BY fullname
+ORDER BY lunch_shifts DESC, fullname ASC;
+
+Large database - daily sales (and grand total)
+
+SELECT m.item_name AS item, SUM(od.qty) AS quantity, SUM(m.price * od.qty) AS total_sales
+FROM menu AS m, order_detail AS od, order_main AS om
+WHERE m.id = od.menuid
+	AND od.orderid = om.orderid
+	AND om.order_date = "2012-11-16"
+GROUP BY item WITH ROLLUP;
