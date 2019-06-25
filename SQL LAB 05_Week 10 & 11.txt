@@ -1,0 +1,45 @@
+SELECT b.title
+FROM customer AS c
+WHERE NOT EXISTS (
+	SELECT *
+	FROM trans AS t, book as B
+	WHERE c.id = t.id AND t.id = b.id AND);
+
+
+Week 11
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS Full_Name, COUNT(*) AS Num_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND es.wdate LIKE "2011-%"
+GROUP BY Full_Name
+HAVING COUNT(*)>5;
+
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS Full_Name, COUNT (*) AS Num_Shifts
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS fullname, COUNT(*) AS lunch_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND s.period = "L"
+GROUP BY fullname
+ORDER BY lunch_shifts DESC;
+
+
+SELECT CONCAT(e.fname, '  ', e.lname) AS fullname, COUNT(*) AS lunch_shifts
+FROM employee AS e, shift AS s, emp_shift AS es
+WHERE e.empid = es.empid
+	AND s.shiftid = es.shiftid
+	AND s.period = "L"
+	AND (s.dayofweek = "sa" OR s.dayofweek = "su")
+GROUP BY fullname
+ORDER BY lunch_shifts DESC, fullname ASC;
+
+SELECT m.item_name AS item, SUM(od.qty) AS quantity, SUM(m.price * od.qty) AS total_sales
+FROM menu AS m, order_detail AS od, order_main AS om
+WHERE m.id = od.menuid
+	AND od.orderid = om.orderid
+	AND om.order_date = "2012-11-16"
+GROUP BY item with ROLLUP;
