@@ -1,0 +1,51 @@
+CREATE TABLE artist
+(
+aid INT AUTO_INCREMENT NOT NULL,
+fname VARCHAR(20) NOT NULL,
+lname VARCHAR (20),
+dob DATE,
+gender CHAR(1) NOT NULL,
+PRIMARY KEY (aid)
+)
+ENGINE = innodb;
+
+ALTER TABLE artist AUTO_INCREMENT = 100;
+
+
+CREATE TABLE band
+(
+bid INT AUTO_INCREMENT NOT NULL,
+name VARCHAR(20) NOT NULL,
+year_formed VARCHAR(4),
+PRIMARY KEY (bid)
+)
+ENGINE = innodb;
+
+ALTER TABLE band AUTO_INCREMENT = 100;
+
+
+CREATE TABLE in_band
+(
+aid INT,
+bid INT,
+date_in DATE NOT NULL,
+date_out DATE,
+FOREIGN KEY (aid) REFERENCES artist(aid),
+FOREIGN KEY (bid) REFERENCES band (bid)
+)
+ENGINE = innodb;
+
+CREATE TABLE album(
+	albumid INT AUTO_INCREMENT NOT NULL,
+	published_year DATE,
+	bid INT,
+	title VARCHAR(20),
+	price DECIMAL,
+	publisher VARCHAR (20),
+	format VARCHAR(20),
+	PRIMARY KEY (albumid),
+	Foreign KEY (bid) REFERENCES band(bid)
+)
+ENGINE = INNODB;
+
+ALTER TABLE album AUTO_INCREMENT = 100;
